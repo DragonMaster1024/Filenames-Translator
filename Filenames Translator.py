@@ -1,5 +1,6 @@
-from googletrans import Translator, LANGUAGES
-from keyboard import read_key
+# Python 3.12.x
+from googletrans import Translator, LANGUAGES # pip install googletrans==4.0.0rc1
+from keyboard import read_key # pip install keyboard
 from os import system, listdir
 from os.path import isfile, exists
 from sys import exit
