@@ -1,12 +1,13 @@
 from googletrans import Translator, LANGUAGES
-from keyboard import is_pressed
-from os import system
-from os import listdir
+from keyboard import read_key
+from os import system, listdir
 from os.path import isfile, exists
 from sys import exit
 from time import sleep
 from re import fullmatch
 from httpcore._exceptions import ConnectError
+
+system("color 0A")
 
 def print_title():
 	print("Filenames Translator\n\nVersion: 1.0\n\nMade by Dragon Master\n\n=====================\n\n")
@@ -36,8 +37,12 @@ def translate_filenames(source_folder, file_type, dest_folder, srclang=None, des
 				print(f"{error_log}\n")
 	logfile.write("\nWARNING: A few files may have incorrect translations, may not be translated at all, or may not have been copied due to filename issues. Manually check them before using the files.")
 	logfile.close()
+	system("color 06")
 	print(f"\nSuccessfully written the file {dest_folder}/logs.txt")
+	system("color 04")
 	print("\n\nWARNING: A few files may have incorrect translations, may not be translated at all, or may not have been copied due to filename issues. Manually check them before using the files.")
+	system("color 0A")
+
 code_list = list(LANGUAGES.keys())
 lang_list = list(LANGUAGES.values())
 string_0 = ""
@@ -46,7 +51,7 @@ for lang in lang_list:
 	lang_list[c] = lang.title()
 	c += 1
 c = 0
-string_0 += "Note: Default for source language is auto detection and for destination language it is English.\n\nDefault = d\n\n"
+string_0 += "Default = d\n\n"
 while c < len(lang_list):
 	string_0 += f"{lang_list[c]} = {code_list[c]}\n\n"
 	c += 1
@@ -54,39 +59,54 @@ t = Translator()
 while True:
 	system("cls") 
 	print_title()
-	print('Note: You have to type it in like this C:\Games\Game\FileFolder without quotation marks.\n')
+	system("color 06")
+	print('Note: You have to type it in like this C:\\Games\\Game\\FileFolder without quotation marks.\n')
+	system("color 0A")
 	while True:
 		src = input("Enter Source Folder\n>>> ")
 		if exists(src) is not True:
+			system("color 04")
 			print("Invalid Path\n")
+			system("color 0A")
 		elif exists(src) is True:
 			src.replace("\\","/")
 			break
 	system("cls") 
 	print_title()
+	system("color 06")
 	print('Note: Only characters and numbers are allowed, no need to add the dot to type the format in.\n')
+	system("color 0A")
 	while True:
 		type = input("Enter File Type\n>>> ")
 		if fullmatch(r"[A-Za-z0-9]+", type):
 			break
 		else:
+			system("color 04")
 			print("Invalid Format Type\n")
+			system("color 0A")
 	system("cls") 
 	print_title()
-	print('Note: You have to type it in like this C:\Games\Game\FileFolder without quotation marks.\n')
+	system("color 06")
+	print('Note: You have to type it in like this C:\\Games\\Game\\FileFolder without quotation marks.\n')
+	system("color 0A")
 	while True:
 		dest = input("Enter Destination Folder\n>>> ")
 		if exists(src) is not True:
+			system("color 04")
 			print("Invalid Path\n")
+			system("color 0A")
 		elif exists(src) is True:
 			src.replace("\\","/")
 			break
 	system("cls") 
 	print_title()
 	print("Loading language codes...")
-	sleep(1)
+	sleep(2)
 	system("cls")
 	print_title()
+	system("color 06")
+	print("Note: Default for source language is auto detection and for destination language it is English.\n")
+	system("color 0A")
 	print(f"Language Codes:\n\n{string_0}")
 	code_list.append("d")
 	while True:
@@ -111,12 +131,14 @@ while True:
 		translate_filenames(src, type, dest, srclang=src_lang, destlang=dest_lang)
 	else:
 		translate_filenames(src, type, dest)
-	print("Restart the application? y/n")
+	print("\n\nRestart the application? y/n")
 	while True:
-		key = is_pressed("y")
-		if key is True:
+		sleep(0.5)
+		key = read_key()
+		if key == "y":
 			break
-		elif key is False:
+		elif key == "n":
+			break
 			exit()
 		else:
 			continue
