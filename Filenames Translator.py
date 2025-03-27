@@ -138,7 +138,6 @@ while True:
 		if key == "y":
 			break
 		elif key == "n":
-			break
 			exit()
 		else:
 			continue
